@@ -13,3 +13,7 @@ class EventViewSet(viewsets.ModelViewSet):
             return [permissions.AllowAny()]
 
         return [permissions.IsAuthenticated()]
+
+    def perform_create(self, serializer):
+        organizer = self.request.user.organizer_profile
+        serializer.save(organizer=organizer)

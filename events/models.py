@@ -28,6 +28,12 @@ class Event(models.Model):
         related_name="events",
     )
 
+    participants = models.ManyToManyField(
+        "participants.Participant",
+        through="participants.Registration",
+        related_name="events",
+    )
+
     objects = EventManager()
 
     def __str__(self):

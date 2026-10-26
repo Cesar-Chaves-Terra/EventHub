@@ -1,3 +1,4 @@
+from django.db import transaction
 from django.db import models
 
 class Participant(models.Model):
@@ -34,6 +35,11 @@ class Registration(models.Model):
         choices=STATUS_CHOICES,
         default="ACTIVE",
     )
+    
+    def save(self, *args, **kwargs):
+        with transaction.atomic():
+            super().save(*args, **kwargs)
+
 
     class Meta:
         constraints = [
